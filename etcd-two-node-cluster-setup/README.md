@@ -104,6 +104,15 @@ nano etcd-csr.json
 cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=etcd etcd-csr.json | cfssljson -bare etcd
 ```
 
+## Create /etc/etcd/ssl folder in both nodes and copy ca.pem etcd.pem etcd-key.pem generated from last step
+
+## To copy over the network use the following command
+```
+scp ./ca.pem username@host_ip:/etc/etcd/ssl
+scp ./etcd.pem username@host_ip:/etc/etcd/ssl
+scp ./etcd-key.pem username@host_ip:/etc/etcd/ssl
+```
+
 
 ## On both nodes
 ```
