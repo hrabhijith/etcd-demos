@@ -5,9 +5,12 @@
 ## Follow the video to download the cfssl and cfssljson binaries, then follow the commads below.
 
 ## On first node
+
+```ruby
 chmod 777 cfssl_1.6.1_linux_amd64 cfssljson_1.6.1_linux_amd64
 sudo mv cfssl_1.6.1_linux_amd64 /usr/local/bin/cfssl
 sudo mv cfssljson_1.6.1_linux_amd64 /usr/local/bin/cfssljson
+```
 
 # On first node
 nano ca-config.json
