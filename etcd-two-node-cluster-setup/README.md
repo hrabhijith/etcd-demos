@@ -1,6 +1,6 @@
 # Two node ETCD cluster setup using virtualbox on windows 10.
 
-## Follow the video and install etcd and etcd binaries on both VMs.
+## Follow the video and install etcd and etcdctl binaries on both VMs.
 
 ## Follow the video to download the cfssl and cfssljson binaries, then follow the commads below.
 
