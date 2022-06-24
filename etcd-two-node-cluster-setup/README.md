@@ -13,8 +13,11 @@ sudo mv cfssljson_1.6.1_linux_amd64 /usr/local/bin/cfssljson
 ```
 
 # On first node
+```
 nano ca-config.json
+```
 
+```json
 {
     "signing": {
         "default": {
@@ -28,10 +31,14 @@ nano ca-config.json
         }
     }
 }
+```
 
 ## On first node
+```
 nano ca-csr.json
+```
 
+```json
 {
   "CN": "etcd cluster",
   "key": {
@@ -48,18 +55,26 @@ nano ca-csr.json
     }
   ]
 }
+```
 
 ## On first node
+```
 cfssl gencert -initca ca-csr.json | cfssljson -bare ca
+```
 
 
 ## On both nodes
+```
 export ETCD1_IP="<your IP of the first server>"
 export ETCD2_IP="<your IP of the second server>"
+```
 
 ## On first node
+```
 nano etcd-csr.json
-  
+```
+
+```json
 {
   "CN": "etcd",
   "hosts": [
@@ -82,18 +97,22 @@ nano etcd-csr.json
     }
   ]
 }
+```
 
 ## On first node
+```
 cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=etcd etcd-csr.json | cfssljson -bare etcd
-
+```
 
 
 ## On both nodes
+```
 export NODE_IP="<IP address of the node where this command runs>"
 export ETCD_NAME=$(hostname -s)
-
+```
 
 ## On both nodes
+```
 [Unit]
 Description=etcd
 
@@ -122,22 +141,27 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 
-
+```
   
 ## On both nodes
+```
 systemctl daemon-reload
 systemctl enable --now etcd
-
+```
 
 ## On both nodes
+```
 export ETCDCTL_API=3 
 export ETCDCTL_ENDPOINTS=https://192.168.178.116:2379,https://192.168.178.115:2379
 export ETCDCTL_CACERT=/etc/etcd/ssl/ca.pem
 export ETCDCTL_CERT=/etc/etcd/ssl/etcd.pem
 export ETCDCTL_KEY=/etc/etcd/ssl/etcd-key.pem
+```
 
 
 ## On both nodes
+```
 etcdctl member list
 etcdctl endpoint status
 etcdctl endpoint health
+```
